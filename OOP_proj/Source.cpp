@@ -1,7 +1,4 @@
 #include<iostream>
-using namespace std;
-
-int main() {
-
-	cout << "Hello world !";
-}
+#include "Calcul.h"
+#include "Descompunere.h"
+#include "Ecuatie.h"
