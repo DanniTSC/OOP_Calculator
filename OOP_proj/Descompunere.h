@@ -23,8 +23,49 @@ public:
 
 	}
 
-	Descompunere()
+	Descompunere(char* expresieDescompusa)
 	{
+		if (expresieDescompusa != nullptr)
+		{
+			this->expresieDescompusa = new char[strlen(expresieDescompusa) + 1];
+			strcpy_s(this->expresieDescompusa, strlen(expresieDescompusa) + 1, expresieDescompusa);
+		}
+	}
+
+	Descompunere& operator=(const Descompunere& d)
+	{
+		if (this == &d)
+		{
+			throw exception("autoasignare");
+		}
+		
+		if (d.expresieDescompusa != nullptr)
+		{
+			if (this->expresieDescompusa)
+			{
+				delete[] this->expresieDescompusa;
+			}
+			this->expresieDescompusa = new char[strlen(d.expresieDescompusa) + 1];
+			strcpy_s(this->expresieDescompusa, strlen(d.expresieDescompusa) + 1, d.expresieDescompusa);
+		}
+		else
+		{
+			this->expresieDescompusa = nullptr;
+		}
+		return *this;
+	}
+
+	Descompunere(const Descompunere& d)
+	{
+		if (d.expresieDescompusa != nullptr)
+		{
+			this->expresieDescompusa = new char[strlen(d.expresieDescompusa) + 1];
+			strcpy_s(this->expresieDescompusa, strlen(d.expresieDescompusa) + 1, d.expresieDescompusa);
+		}
+		else
+		{
+			this->expresieDescompusa = nullptr;
+		}
 	}
 
 	static bool esteOperator(char Operator)
@@ -49,10 +90,37 @@ public:
 			this->expresieDescompusa = nullptr;
 		}
 	}
-
+	
+	friend istream& operator>>(istream& i, Descompunere& d);
+	friend ostream& operator<<(ostream& o, Descompunere d);
 
 };//end of class
 
+istream& operator>>(istream& i, Descompunere& d)
+{
+	string buffer;
+	i >> buffer;
+	if (d.expresieDescompusa)
+	{
+		delete[] d.expresieDescompusa;
+	}
+	d.expresieDescompusa = new char[buffer.length() + 1];
+	strcpy_s(d.expresieDescompusa, buffer.length() + 1, buffer.c_str());
+	return i;
+}
+
+ostream& operator<<(ostream& o, Descompunere d)
+{
+	if (d.expresieDescompusa)
+	{
+		o << d.expresieDescompusa;
+	}
+	else
+	{
+		o << "expresie nula";
+	}
+	return o;
+}
 
 int Descompunere::nrDescompuneri = 0;
 

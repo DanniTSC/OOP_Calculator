@@ -11,23 +11,85 @@ class Ecuatie
 {
 private:
 	double* coeficienti;
+	int nrCoef;
 	static int nrEcuatiiRezolvate;
 	const int MAX_NECUNOSCUTE = 2;
 
 
 public:
-	Ecuatie():MAX_NECUNOSCUTE(2) {
+	Ecuatie() {
 		coeficienti = nullptr;
+		nrCoef = 0;
 	}
 	
-	Ecuatie(double* coeficienti, const int MAX_NECUNOSCUTE)
+	Ecuatie(double* coeficienti, int nrCoef)
 	{
-		if (coeficienti != nullptr)
+
+		if (coeficienti != nullptr && nrCoef > 0)
 		{
-			this->coeficienti = new double[sizeof coeficienti];
-			this->coeficienti = coeficienti;
+			this->nrCoef = nrCoef;
+			this->coeficienti = new double[nrCoef];
+			for (int i = 0; i < this->nrCoef; i++)
+			{
+				this->coeficienti[i] = coeficienti[i];
+
+			}
+		}
+		else
+		{
+			this->coeficienti = nullptr;
+			this->nrCoef = 0;
 		}
 	}
+
+	Ecuatie(const Ecuatie& e)
+	{
+
+		if (coeficienti != nullptr && nrCoef > 0)
+		{
+			this->nrCoef = nrCoef;
+			this->coeficienti = new double[nrCoef];
+			for (int i = 0; i < this->nrCoef; i++)
+			{
+				this->coeficienti[i] = coeficienti[i];
+
+			}
+		}
+		else
+		{
+			this->coeficienti = nullptr;
+			this->nrCoef = 0;
+		}
+	}
+
+	Ecuatie& operator=(const Ecuatie& e)
+	{
+		if (this == &e)
+		{
+			throw exception("autoasignare");
+		}
+
+		if (e.coeficienti != nullptr && e.nrCoef > 0)
+		{
+			if (this->coeficienti)
+			{
+				delete[] this->coeficienti;
+			}
+			this->nrCoef = nrCoef;
+			this->coeficienti = new double[nrCoef];
+			for (int i = 0; i < nrCoef; i++)
+			{
+				this->coeficienti[i] = e.coeficienti[i];
+			}
+		}
+		else
+		{
+			this->coeficienti = nullptr;
+			this->nrCoef = 0;
+		}
+		return *this;
+	}
+
 	static bool verificaFormat(const string& ecuatie)
 	{
 		
@@ -52,7 +114,19 @@ public:
 		}
 	}
 
-};//end of class
+	friend istream& operator>>(istream& i, Ecuatie& e);
+	friend ostream& operator<<(ostream& o, Ecuatie e);
 
+};//end of class
+istream& operator>>(istream& i, Ecuatie& e)
+{
+	
+
+}
+
+ostream& operator<<(ostream& o, Ecuatie e)
+{
+
+}
 
 int Ecuatie::nrEcuatiiRezolvate = 0;

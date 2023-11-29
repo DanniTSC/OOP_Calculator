@@ -159,6 +159,7 @@ public:
 			this->rezultate = nullptr;
 		}
 	}
+	
 	friend istream& operator>>(istream& i, Calcul& c);
 	friend ostream& operator<<(ostream& o, Calcul c);
 
