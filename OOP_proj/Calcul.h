@@ -138,13 +138,38 @@ public:
 
 	double efectuareOperatie(double operand1, double operand2, char Operator)
 	{
+		if (Operator == '+')
+		{
+			return operand1 + operand2;
+		}
 
+		if (Operator == '-')
+		{
+			return operand1 - operand2;
+		}
+
+		if (Operator == '*')
+		{
+			return operand1 * operand2;
+		}
+
+		if (Operator == '/')
+		{
+			if (operand2 == 0)
+			{
+				throw exception("Impartie la 0");
+			}
+			else
+			{
+				return operand1 / operand2;
+			}
+		}
 	}
 
-	static bool verificaOperator(char Operator)
+	/*static bool verificaOperator(char Operator)
 	{
 
-	}
+	}*/
 
 	void adaugaRezultatIntermediar(double rezultat) 
 	{
@@ -172,8 +197,8 @@ istream& operator>>(istream& i, Calcul& c)
 {
 	cout << "nrRezultate";
 	i >> c.nrRezultate;
-	if (c.nrRezultate > 0) {
-		cout << "nr rezultate negativ";
+	if (c.nrRezultate < 0) {
+		cout << "nr rezultate trebuie sa fie >0";
 		throw exception();
 	}
 	cout << "dati rezultate:";

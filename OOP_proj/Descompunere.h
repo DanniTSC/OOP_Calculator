@@ -67,6 +67,16 @@ public:
 			this->expresieDescompusa = nullptr;
 		}
 	}
+	
+	void setExpresie(const string& expresie)
+	{
+		if (this->expresieDescompusa)
+		{
+			delete[] this->expresieDescompusa;
+		}
+		expresieDescompusa = new char[expresie.length() + 1];
+		strcpy_s(this->expresieDescompusa, expresie.length() + 1, expresie.c_str());
+	}
 
 	static bool esteOperator(char Operator)
 	{
@@ -75,6 +85,13 @@ public:
 
 	void descompunereExpresie(const string& expresie) //din moment ce string este o clasa evit constr de copiere cu &
 	{
+		if (this->expresieDescompusa)
+		{
+			delete[] this->expresieDescompusa;
+			this->expresieDescompusa = nullptr;
+		}
+		
+	
 
 	}
 

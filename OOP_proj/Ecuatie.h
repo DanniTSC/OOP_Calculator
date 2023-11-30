@@ -12,8 +12,8 @@ class Ecuatie
 private:
 	double* coeficienti;
 	int nrCoef;
-	static int nrEcuatiiRezolvate;
-	const int MAX_NECUNOSCUTE = 2;
+	static int nrEcuatiiRezolvate; //++ cand o ec este rezolvata 
+	const int MAX_NECUNOSCUTE = 2; // ecuatie de gradul 2 max
 
 
 public:
@@ -120,13 +120,37 @@ public:
 };//end of class
 istream& operator>>(istream& i, Ecuatie& e)
 {
-	
+	cout << "introduceti nr coeficietni:";
+	i >> e.nrCoef;
+	if (e.coeficienti)
+	{
+		delete[] e.coeficienti;
+	}
 
+	for (int j = 0; j < e.nrCoef; j++)
+	{
+		i >> e.coeficienti[j];
+	}
+	return i;
 }
 
 ostream& operator<<(ostream& o, Ecuatie e)
 {
-
+	if (e.coeficienti != nullptr && e.nrCoef > 0)
+	{
+		o << "coeficienti:";
+		for (int i = 0; i < e.nrCoef; i++)
+		{
+			o << e.coeficienti[i] << " ";
+		}
+	}
+	else
+	{
+		o << "ec fara coeficienti";
+	}
+	
+	return o;
+	
 }
 
 int Ecuatie::nrEcuatiiRezolvate = 0;
