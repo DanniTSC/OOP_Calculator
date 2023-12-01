@@ -14,7 +14,7 @@ class Descompunere
 private:
 	char* expresieDescompusa;
 	static int nrDescompuneri;
-	const string CARACTERE_PERMISE = "0123456789+=*/";
+	static const string CARACTERE_PERMISE;
 
 public:
 	Descompunere()
@@ -68,6 +68,11 @@ public:
 		}
 	}
 	
+	char* getExpresie()
+	{
+		return this->expresieDescompusa;
+	}
+
 	void setExpresie(const string& expresie)
 	{
 		if (this->expresieDescompusa)
@@ -80,7 +85,14 @@ public:
 
 	static bool esteOperator(char Operator)
 	{
-
+		for (int i = 0; i < CARACTERE_PERMISE.length(); i++)
+		{
+			if (CARACTERE_PERMISE[i] == Operator)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 	void descompunereExpresie(const string& expresie) //din moment ce string este o clasa evit constr de copiere cu &
@@ -91,12 +103,34 @@ public:
 			this->expresieDescompusa = nullptr;
 		}
 		
-	
+		expresieDescompusa = new char[expresie.length() + 1];
+		strcpy_s(expresieDescompusa, expresie.length() + 1, expresie.c_str());
+
+		char* termen = strtok(expresieDescompusa, " ");
+		while (termen != nullptr)
+		{
+			cout << "termen:" << termen << endl;
+			termen = strtok(nullptr, " ");
+		}
 
 	}
 
 	string obtineTermeni() {
-
+		string rezultat;
+		if (expresieDescompusa)
+		{
+			char* copieExpresie = new char[strlen(expresieDescompusa) + 1];
+			strcpy_s(copieExpresie, strlen(expresieDescompusa) + 1, expresieDescompusa);
+			char* termen = strtok(copieExpresie, " ");
+			while (termen != nullptr)
+			{
+				rezultat += termen;
+				rezultat += " ";
+				termen = strtok(nullptr, " ");
+			}
+			delete[] copieExpresie;
+		}
+		return rezultat;
 	}
 
 	~Descompunere()
@@ -111,6 +145,22 @@ public:
 	friend istream& operator>>(istream& i, Descompunere& d);
 	friend ostream& operator<<(ostream& o, Descompunere d);
 
+	char operator[](int index)
+	{
+		if (index >= 0 && index < strlen(expresieDescompusa)) {
+			return expresieDescompusa[index];
+		}
+		else
+		{
+			return '\0';
+		}
+	}
+
+	bool operator==(const Descompunere& desc)
+	{
+		return strcmp(expresieDescompusa, desc.expresieDescompusa) == 0;
+		//strcmp 0 daca sirurile sunt egale, deci functia intoarce adevarat
+	}
 };//end of class
 
 istream& operator>>(istream& i, Descompunere& d)
@@ -140,4 +190,4 @@ ostream& operator<<(ostream& o, Descompunere d)
 }
 
 int Descompunere::nrDescompuneri = 0;
-
+const string Descompunere::CARACTERE_PERMISE = "0123456789+=-/*";

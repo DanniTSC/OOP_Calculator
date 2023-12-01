@@ -88,6 +88,11 @@ public:
 		return this->nrRezultate;
 	}
 
+	void setNrRezultate(int nrRez)
+	{
+		this->nrRezultate = nrRez;
+	}
+
 	Calcul(const Calcul& c)
 	{
 		if (c.rezultate != nullptr && c.nrRezultate > 0)
@@ -166,15 +171,23 @@ public:
 		}
 	}
 
-	/*static bool verificaOperator(char Operator)
-	{
-
-	}*/
 
 	void adaugaRezultatIntermediar(double rezultat) 
 	{
-
-
+		double* temp = new double[nrRezultate];
+		for (int i = 0; i < nrRezultate; i++)
+		{
+			temp[i] = rezultate[i];
+		}
+		delete[] rezultate;
+		rezultate = new double[nrRezultate + 1];
+		for (int i = 0; i < nrRezultate; i++)
+		{
+			rezultate[i] = temp[i];
+		}
+		rezultate[nrRezultate] = rezultat;
+		delete[] temp;
+		nrRezultate++;
 	}
 
 	~Calcul() {
@@ -188,6 +201,16 @@ public:
 	friend istream& operator>>(istream& i, Calcul& c);
 	friend ostream& operator<<(ostream& o, Calcul c);
 
+	bool operator!() // verifica daca  exista rezultate
+	{
+		if (nrRezultate == 0)
+		{
+			return true; 
+		}
+
+	}
+
+	//Calcul& operator-()
 
 }; //end of class
 

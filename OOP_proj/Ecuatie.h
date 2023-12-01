@@ -90,6 +90,48 @@ public:
 		return *this;
 	}
 
+	void setCoef(double* Coef, int nrCoeficienti)
+	{
+		if (Coef != nullptr && nrCoeficienti > 0) {
+			if (this->coeficienti)
+			{
+				if (this->coeficienti)
+				{
+					delete[] this->coeficienti;
+				}
+			}
+			for (int i = 0; i < nrCoeficienti; i++)
+			{
+				this->coeficienti[i] = Coef[i];
+			}
+		}
+		else
+		{
+			this->coeficienti = nullptr;
+		}
+	}
+	
+	void setNrCoef(int nrCoeficienti) {
+		if (nrCoeficienti > 0)
+		{
+			this->nrCoef = nrCoeficienti;
+		}
+		else
+		{
+			this->nrCoef = 0;
+		}
+	}
+
+	double* getCoef()
+	{
+		return this->coeficienti;
+	}
+
+	int getNrCoef()
+	{
+		return this->nrCoef;
+	}
+
 	static bool verificaFormat(const string& ecuatie)
 	{
 		
@@ -116,6 +158,29 @@ public:
 
 	friend istream& operator>>(istream& i, Ecuatie& e);
 	friend ostream& operator<<(ostream& o, Ecuatie e);
+
+	Ecuatie& operator++()
+	{
+		for (int i = 0; i < nrCoef; i++)
+		{
+			coeficienti[i]++;
+		}
+		return *this;
+	}
+
+	Ecuatie& operator--()
+	{
+		for (int i = 0; i < nrCoef; i++)
+		{
+			coeficienti[i]--;
+		}
+		return *this;
+	}
+
+	explicit operator bool() //verifica daca este de gradul 2 ecuatia
+	{
+		return (nrCoef == 3 || nrCoef == 2) && coeficienti[nrCoef - 1] != 0;
+	}
 
 };//end of class
 istream& operator>>(istream& i, Ecuatie& e)
