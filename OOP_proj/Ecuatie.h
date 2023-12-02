@@ -1,6 +1,7 @@
 #pragma once
 #include<iostream>
 #include<string>
+#include<cmath>
 #include "Calcul.h"
 #include "Descompunere.h"
 using namespace std;
@@ -12,7 +13,6 @@ class Ecuatie
 private:
 	double* coeficienti;
 	int nrCoef;
-	static int nrEcuatiiRezolvate; //++ cand o ec este rezolvata 
 	const int MAX_NECUNOSCUTE = 2; // ecuatie de gradul 2 max
 
 
@@ -134,15 +134,66 @@ public:
 
 	static bool verificaFormat(const string& ecuatie)
 	{
-		
+		bool existaX = false;
+		bool areOperatori = false;
+
+		for (int i = 0; i < ecuatie.size(); i++)
+		{
+			if (ecuatie[i] == 'x')
+			{
+				existaX = true;
+			}
+
+			if (ecuatie[i] == '+' || ecuatie[i] == '-' || ecuatie[i] == '*' || ecuatie[i] == '/' || ecuatie[i] == '^')
+			{
+				areOperatori = true;
+			}
+			if (existaX && areOperatori)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 	void rezolvaEcuatie()
 	{
+		double a; //ax^2
+		double b; //bx
+		double c; //termen liber
+		
+		if (nrCoef >= 1) c = coeficienti[0];
+		if (nrCoef >= 2) b = coeficienti[1];
+		if (nrCoef >= 3) a = coeficienti[2];
 
+		if (nrCoef == 3 && a != 0)
+		{
+			double delta = b * b - 4 * a * c;
+			if (delta >= 0)
+			{
+				double x1 = ((-b + sqrt(delta)) / (2 * a));
+				double x2 = ((-b - sqrt(delta)) / (2 * a));
+				cout << "solutiile sunt:" << endl << "x1=" << x1 << endl << "x2=" <<x2 << endl;
+			}
+			else
+			{
+				cout << "ecuatia nu are solutii reale delta < 0";
+			}
+		}
+		else if (nrCoef >= 2 && b != 0)
+		{
+			double solutie = -c / b;
+			cout << "solutia ec de grad 1 este:" << solutie << endl;
+		}
+		else
+		{
+			throw exception("ecuatie invalida");
+		}
+		
+		
 	}
 
-	string obtineSolutie()
+	string obtineCoef()
 	{
 
 	}
@@ -218,4 +269,3 @@ ostream& operator<<(ostream& o, Ecuatie e)
 	
 }
 
-int Ecuatie::nrEcuatiiRezolvate = 0;

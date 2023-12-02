@@ -97,6 +97,7 @@ public:
 
 	void descompunereExpresie(const string& expresie) //din moment ce string este o clasa evit constr de copiere cu &
 	{
+		char* context = nullptr;
 		if (this->expresieDescompusa)
 		{
 			delete[] this->expresieDescompusa;
@@ -106,27 +107,29 @@ public:
 		expresieDescompusa = new char[expresie.length() + 1];
 		strcpy_s(expresieDescompusa, expresie.length() + 1, expresie.c_str());
 
-		char* termen = strtok(expresieDescompusa, " ");
+		char* termen = strtok_s(expresieDescompusa, " ",&context);
 		while (termen != nullptr)
 		{
 			cout << "termen:" << termen << endl;
-			termen = strtok(nullptr, " ");
+			termen = strtok_s(nullptr, " ",&context);
 		}
 
 	}
 
 	string obtineTermeni() {
+		char* context = nullptr;
 		string rezultat;
 		if (expresieDescompusa)
 		{
 			char* copieExpresie = new char[strlen(expresieDescompusa) + 1];
 			strcpy_s(copieExpresie, strlen(expresieDescompusa) + 1, expresieDescompusa);
-			char* termen = strtok(copieExpresie, " ");
+			char* termen = strtok_s(copieExpresie, " ",&context);
+		
 			while (termen != nullptr)
 			{
 				rezultat += termen;
 				rezultat += " ";
-				termen = strtok(nullptr, " ");
+				termen = strtok_s(nullptr, " ",&context);
 			}
 			delete[] copieExpresie;
 		}

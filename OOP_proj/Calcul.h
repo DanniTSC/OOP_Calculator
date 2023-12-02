@@ -20,12 +20,12 @@ private:
 	static int nrOperatiiEfectuate;
 public:
 
-	Calcul() : EROARE_MAX(0.0001){
+	Calcul(){
 		rezultate = nullptr;
 		nrRezultate = 0;
 	}
 
-	Calcul(double* rezultate, int nrRezultate, const double eroare): EROARE_MAX(eroare)
+	Calcul(double* rezultate, int nrRezultate, const double eroare)
 	{
 		if (rezultate != nullptr && nrRezultate > 0)
 		{
@@ -146,16 +146,19 @@ public:
 		if (Operator == '+')
 		{
 			return operand1 + operand2;
+			nrOperatiiEfectuate++;
 		}
 
 		if (Operator == '-')
 		{
 			return operand1 - operand2;
+			nrOperatiiEfectuate++;
 		}
 
 		if (Operator == '*')
 		{
 			return operand1 * operand2;
+			nrOperatiiEfectuate++;
 		}
 
 		if (Operator == '/')
@@ -167,6 +170,7 @@ public:
 			else
 			{
 				return operand1 / operand2;
+				nrOperatiiEfectuate++;
 			}
 		}
 	}
