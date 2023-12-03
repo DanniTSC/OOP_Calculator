@@ -128,39 +128,45 @@ Calcul& Calcul::operator=(const Calcul& c)
 	return *this;
 }
 
-double Calcul::efectuareOperatie(double operand1, double operand2, char Operator)
+double Calcul::efectuareOperatie(const double numere[], const char operatori[], int nrNumere, int nrOperatori)
 {
-	if (Operator == '+')
+	if (nrNumere == 0)
 	{
-		nrOperatiiEfectuate++;
-		return operand1 + operand2;
-
+		throw exception("Niciun numar de calculat");
 	}
 
-	if (Operator == '-')
+	double rezultat = numere[0];
+	for (int i = 0; i < nrNumere - 1; ++i)
 	{
-		return operand1 - operand2;
-		nrOperatiiEfectuate++;
-	}
-
-	if (Operator == '*')
-	{
-		return operand1 * operand2;
-		nrOperatiiEfectuate++;
-	}
-
-	if (Operator == '/')
-	{
-		if (operand2 == 0)
+		switch (operatori[i])
 		{
-			throw exception("Impartie la 0");
-		}
-		else
-		{
-			return operand1 / operand2;
-			nrOperatiiEfectuate++;
+		case '+':
+			rezultat += numere[i + 1];
+			cout << "Rezultat intermediar: " << rezultat << endl;
+				break;
+		case '-':
+			rezultat -= numere[i + 1];
+			cout << "Rezultat intermediar: " << rezultat << endl;
+			break;
+		case '/':
+			if (numere[i + 1] == 0)
+			{
+				cout << "eroare impartire la 0";
+				throw exception("impartire la 0");
+			}
+			rezultat /= numere[i + 1];
+			cout << "Rezultat intermediar: " << rezultat << endl;
+			break;
+		case '*':
+			rezultat *= numere[i + 1];
+			cout << "Rezultat intermediar: " << rezultat << endl;
+			break;
+			default:
+				throw exception("operator necunoscut");
+				
 		}
 	}
+	return rezultat;
 }
 //adauga un nr la toate rezultatele din obj calcul
 Calcul Calcul::operator+(double numar)

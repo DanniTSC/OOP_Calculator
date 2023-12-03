@@ -145,9 +145,9 @@ bool Ecuatie::verificaFormat(const string& ecuatie)
 
 void Ecuatie::rezolvaEcuatie()
 {
-	double a; //ax^2
-	double b; //bx
-	double c; //termen liber
+	double a = 0; //ax^2
+	double b = 0 ; //bx
+	double c = 0; //termen liber
 
 	if (nrCoef >= 1) c = coeficienti[0];
 	if (nrCoef >= 2) b = coeficienti[1];

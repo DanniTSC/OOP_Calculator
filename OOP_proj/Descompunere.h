@@ -39,7 +39,7 @@ public:
 	static bool esteOperator(char Operator);
 	
 
-	void descompunereExpresie(const string& expresie); //din moment ce string este o clasa evit constr de copiere cu &
+	static void descompunereExpresie(const string& expresie,double numere[],char operatori[], int& nrNumere, int& nrOperatori); //din moment ce string este o clasa evit constr de copiere cu &
 	
 
 	string obtineTermeni();

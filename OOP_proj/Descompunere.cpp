@@ -83,25 +83,37 @@ bool Descompunere::esteOperator(char Operator)
 	return false;
 }
 
-void Descompunere::descompunereExpresie(const string& expresie)
+void Descompunere::descompunereExpresie(const string& expresie, double numere[], char operatori[], int& nrNumere, int& nrOperatori)
 {
-	char* context = nullptr;
-	if (this->expresieDescompusa)
-	{
-		delete[] this->expresieDescompusa;
-		this->expresieDescompusa = nullptr;
+	nrNumere = 0;
+	nrOperatori = 0;
+	string nrStr = "";
+
+	for (char ch : expresie) {
+		if (ch == ' ') {
+			if (!nrStr.empty()) {
+				numere[nrNumere++] = stod(nrStr);
+				nrStr = "";
+			}
+			continue;
+		}
+
+		if (isdigit(ch) || ch == '.') {
+			nrStr += ch;
+		}
+		else if (ch == '+' || ch == '-' || ch == '*' || ch == '/') {
+			if (!nrStr.empty()) {
+				numere[nrNumere++] = stod(nrStr);
+				nrStr = "";
+			}
+			operatori[nrOperatori++] = ch;
+		}
 	}
 
-	expresieDescompusa = new char[expresie.length() + 1];
-	strcpy_s(expresieDescompusa, expresie.length() + 1, expresie.c_str());
-
-	char* termen = strtok_s(expresieDescompusa, " ", &context);
-	while (termen != nullptr)
-	{
-		cout << "termen:" << termen << endl;
-		termen = strtok_s(nullptr, " ", &context);
+	if (!nrStr.empty()) {
+		numere[nrNumere++] = stod(nrStr);
 	}
-
+	
 }
 
 string Descompunere::obtineTermeni()

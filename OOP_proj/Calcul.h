@@ -42,7 +42,7 @@ public:
 	Calcul& operator=(const Calcul& c);
 	
 
-	double efectuareOperatie(double operand1, double operand2, char Operator);
+	static double efectuareOperatie(const double numere[], const char operatori[], int nrNumere, int nrOperatori);
 	
 	
 
