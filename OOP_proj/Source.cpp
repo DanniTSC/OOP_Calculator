@@ -17,16 +17,17 @@ int main() {
     Descompunere::descompunereExpresie(expresie, numere, operatori, nrNumere, nrOperatori);
 
     for (int i = 0; i < nrNumere; i++) {
-        cout << "Numar: " << numere[i] << endl;
+        cout << "numar: " << numere[i] << endl;
     }
 
     for (int i = 0; i < nrOperatori; i++) {
-        cout << "Operator: " << operatori[i] << endl;
+        cout << "operator: " << operatori[i] << endl;
     }
 
     double rezultat = Calcul::efectuareOperatie(numere, operatori, nrNumere, nrOperatori);
-
-    cout << fixed << setprecision(4) << "Rezultatul este: " << rezultat << endl;
+    
+    //fixed este pentru 24343243.0002 - 3 
+    cout << fixed << setprecision(4) << "rezultatul este: " << rezultat << endl;
 
     return 0;
 }
