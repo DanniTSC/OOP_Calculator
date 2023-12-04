@@ -5,7 +5,7 @@
 #include "Ecuatie.h"
 #include<iomanip>
 using namespace std;
-
+//Faza 1 versiunea finala
 int main() {
     string expresie;
     getline(cin, expresie);

@@ -4,7 +4,7 @@
 #include<cmath>
 #include "Calcul.h"
 #include "Descompunere.h"
-
+//Faza 1 versiunea finala
 using namespace std;
 
 class Ecuatie

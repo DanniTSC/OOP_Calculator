@@ -3,7 +3,7 @@
 #include<iostream>
 #include<string>
 #include<cmath>
-
+//Faza 1 versiunea finala
 using namespace std;
 
 int Descompunere::nrDescompuneri = 0;
