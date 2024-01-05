@@ -3,7 +3,7 @@
 #include<string>
 #include "Calcul.h"
 #include "Ecuatie.h"
-//Faza 1 versiunea finala
+
 using namespace std;
 /*
 Mecanism de preprocesare aici este trimisa
