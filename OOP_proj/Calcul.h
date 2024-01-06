@@ -19,7 +19,9 @@ private:
 	int nrRezultate; //dimensiune vect de sus
 	const double EROARE_MAX = 0.0001;
 	static int nrOperatiiEfectuate;
+	double rezultatIntermediar;
 public:
+	
 
 	Calcul(); 
 
@@ -35,9 +37,10 @@ public:
 
 	void setNrRezultate(int nrRez);
 
-
 	Calcul(const Calcul& c);
-	
+
+	double getRezultatIntermediar();
+	void setRezultatIntermediar(double rez);
 
 	Calcul& operator=(const Calcul& c);
 	

@@ -6,9 +6,10 @@
 
 using namespace std;
 
+
 int Calcul::nrOperatiiEfectuate = 0;
 
-Calcul::Calcul() : rezultate(nullptr), nrRezultate(0) {}
+Calcul::Calcul() : rezultate(nullptr), nrRezultate(0), rezultatIntermediar(0.0) {}
 
 Calcul::Calcul(double* rezultate, int nrRezultate)
 {
@@ -39,6 +40,16 @@ Calcul::~Calcul()
 	}
 }
 
+double Calcul::getRezultatIntermediar()
+{
+	return this->rezultatIntermediar;
+}
+
+void Calcul::setRezultatIntermediar(double rez)
+{
+	this->rezultatIntermediar = rez;
+}
+
 void Calcul::setRezultate(double* rezultat, int nrRezultate)
 {
 	if (rezultat != nullptr && nrRezultate > 0)
@@ -62,6 +73,7 @@ void Calcul::setRezultate(double* rezultat, int nrRezultate)
 	}
 
 }
+
 
 double* Calcul::getRezultate()
 	{
@@ -168,6 +180,8 @@ double Calcul::efectuareOperatie(const double numere[], const char operatori[], 
 	}
 	return rezultat;
 }
+
+
 //adauga un nr la toate rezultatele din obj calcul
 Calcul Calcul::operator+(double numar)
 {
