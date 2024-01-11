@@ -93,7 +93,8 @@ vector<string> Descompunere::procesare(const string& expresie)
 	vector<string> out;
 	string nr;
 
-	for (char ch : expresie) {
+	for (char ch : expresie) 
+	{
 		if (isdigit(ch) || ch == '.')
 		{
 			nr += ch;
