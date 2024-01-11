@@ -3,6 +3,7 @@
 #include<string>
 #include "Calcul.h"
 #include "Ecuatie.h"
+#include<vector>
 
 using namespace std;
 /*
@@ -38,6 +39,11 @@ public:
 
 	static bool esteOperator(char Operator);
 	
+	static int prioritate(char oper);
+	
+	static vector<string> procesare(const string& expresie);
+
+	static double evaluare(const vector<string>& tokens);
 
 	static void descompunereExpresie(const string& expresie,double numere[],char operatori[], int& nrNumere, int& nrOperatori); //din moment ce string este o clasa evit constr de copiere cu &
 	

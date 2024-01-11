@@ -3,6 +3,8 @@
 #include<iostream>
 #include<string>
 #include<cmath>
+#include<vector>
+#include<cctype>
 
 using namespace std;
 
@@ -71,17 +73,106 @@ void Descompunere::setExpresie(const string& expresie)
 		strcpy_s(this->expresieDescompusa, expresie.length() + 1, expresie.c_str());
 }
 
+//FAZA 2
 bool Descompunere::esteOperator(char Operator)
 {
-	for (int i = 0; i < CARACTERE_PERMISE.length(); i++)
-	{
-		if (CARACTERE_PERMISE[i] == Operator)
-		{
-			return true;
-		}
-	}
-	return false;
+	return Operator == '+' || Operator == '-' || Operator == '*' ||
+		Operator == '/' || Operator == '#' || Operator == '^';
 }
+
+int Descompunere::prioritate(char oper)
+{
+	if (oper == '+' || oper == '-') return 1;
+	if (oper == '*' || oper == '/')	return 2;
+	if (oper == '#' || oper == '^')	return 3;
+}
+
+vector<string> Descompunere::procesare(const string& expresie)
+{
+	vector<char> container;
+	vector<string> out;
+	string nr;
+
+	for (char ch : expresie) {
+		if (isdigit(ch) || ch == '.')
+		{
+			nr += ch;
+		}
+		else {
+			if (!nr.empty()) {
+				out.push_back(nr);
+				nr.clear();
+			}
+
+			if (esteOperator(ch)) {
+				while (!container.empty() && prioritate(container.back()) >= prioritate(ch)) {
+					out.push_back(string(1, container.back()));
+					container.pop_back();
+				}
+				container.push_back(ch);
+			}
+			else if (ch == '(') {
+				container.push_back(ch);
+			}
+			else if (ch == ')')
+			{
+				while (!container.empty() && container.back() != '(')
+				{
+					out.push_back(string(1, container.back()));
+					container.pop_back();
+				}
+				if (!container.empty()) {
+					container.pop_back();
+				}
+			}
+
+
+		}
+		if (nr.empty())
+		{
+			out.push_back(nr);
+		}
+
+		while (!container.empty())
+		{
+			out.push_back(string(1, container.back()));
+			container.pop_back();
+		}
+
+		return out;
+	}
+}
+
+	double Descompunere::evaluare(const vector<string>&tokens)
+	{
+		vector<double> container;
+
+		for (const auto& token : tokens) 
+		{
+			if (token.size() == 1 && esteOperator(token[0]))
+			{
+				double b = container.back();
+				container.pop_back();
+				double a = container.back();
+				container.pop_back();
+				switch(token[0])
+				{
+				case '+': container.push_back(a + b); break;
+				case '-': container.push_back(a - b); break;
+				case '/': container.push_back(a / b); break;
+				case '*': container.push_back(a * b); break;
+				case '#': container.push_back(sqrt(b)); break;
+				case '^': container.push_back(pow(a,b)); break;
+				}
+			}
+			else {
+				container.push_back(stod(token));
+			}
+		}
+		return container.back();
+	}
+	
+
 
 void Descompunere::descompunereExpresie(const string& expresie, double numere[], char operatori[], int& nrNumere, int& nrOperatori)
 {
