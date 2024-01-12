@@ -25,8 +25,8 @@ int main(int argc, char* argv[]) {
         while (true)
         {
             cout << "Meniu:" << endl;
-            cout << "1. Introducere Ecuatie si rezolvare" << endl;
-            cout << "2. Citire ecuatie din fisier si afisare rezultat consola/fisier" << endl;
+            cout << "1. Introducere Ecuatie si rezolvare:" << endl;
+            cout << "2. Citire ecuatie din fisier si afisare rezultat ori in consola ori in fisier" << endl;
             cout << "3. Salvare rezultat intermediar in fisier" << endl;
             cout << "4. Exit" << endl;
 
