@@ -94,12 +94,22 @@ vector<string> Descompunere::procesare(const string& expresie)
 	vector<char> container;
 	vector<string> out;
 	string nr;
+	int nrPuncte = 0;
 
 	for (char ch : expresie) {
-		if (isdigit(ch) || ch == '.') {
+		if (isdigit(ch)) {
 			nr += ch;
 		}
-		else {
+		else if(ch == '.'){
+			nrPuncte++;
+			if (nrPuncte > 1)
+			{
+				throw runtime_error("format invalid al numarului");
+			}
+			nr += ch;
+		}
+		else 
+		{
 			if (!nr.empty()) {
 				out.push_back(nr);
 				nr.clear();
@@ -125,6 +135,7 @@ vector<string> Descompunere::procesare(const string& expresie)
 					container.pop_back();
 				}
 			}
+			nrPuncte = 0;
 		}
 	}
 
@@ -139,8 +150,6 @@ vector<string> Descompunere::procesare(const string& expresie)
 
 	return out;
 }
-
-
 
 
 double Descompunere::evaluare(const vector<string>& tokens)
@@ -161,9 +170,20 @@ double Descompunere::evaluare(const vector<string>& tokens)
 			case '+': container.push_back(a + b); break;
 			case '-': container.push_back(a - b); break;
 			case '*': container.push_back(a * b); break;
-			case '/': container.push_back(a / b); break;
+			case '/': 
+				if (b == 0)
+				{
+					throw runtime_error("Impartire la 0");
+				}
+				container.push_back(a / b); 
+				break;
 			case '^': container.push_back(pow(a, b)); break;
-			case '#': container.push_back(sqrt(b)); break;
+			case '#':
+				if (b < 0)
+				{
+					throw runtime_error("Radical din numar negativ");
+				}
+				container.push_back(sqrt(b)); break;
 			default: throw runtime_error("Operator necunoscut");
 			}
 		}
@@ -181,7 +201,8 @@ double Descompunere::evaluare(const vector<string>& tokens)
 		throw runtime_error("Expresie invalida: prea multi operanzi");
 	}
 
-	return container.back();
+	double rezultatFinal = container.back();
+	return rezultatFinal == 0 ? 0 : rezultatFinal;
 }
 
 
@@ -195,6 +216,7 @@ void Descompunere::descompunereExpresie(const string& expresie, double numere[],
 	string nrStr = "";
 
 	for (char ch : expresie) {
+
 		if (ch == ' ') {
 			if (!nrStr.empty()) {
 				numere[nrNumere++] = stod(nrStr);

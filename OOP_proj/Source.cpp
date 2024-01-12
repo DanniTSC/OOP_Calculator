@@ -51,7 +51,7 @@ int main(int argc, char* argv[]) {
                 break;
             }
             case 2:
-                //LucruFisiere::citireEcuatiiDinFisier();
+                LucruFisiere::citireEcuatiiDinFisier();
                 break;
             case 3:
                // LucruFisiere::salvareRezultateInFisier(intermediar);
