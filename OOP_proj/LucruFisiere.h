@@ -9,8 +9,8 @@ class LucruFisiere : public Calcul {
 public:
 	LucruFisiere() : Calcul() {};
 
-	void salvareRezultateInFisier(double rezultat);
+	static void salvareRezultateInFisier(double rezultat);
 
-	void citireEcuatiiDinFisier();
+	static void citireEcuatiiDinFisier();
 
 };

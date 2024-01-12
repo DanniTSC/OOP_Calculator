@@ -74,29 +74,29 @@ void Descompunere::setExpresie(const string& expresie)
 }
 
 //FAZA 2
-bool Descompunere::esteOperator(char Operator)
+bool Descompunere::esteOperator(char ch) 
 {
-	return Operator == '+' || Operator == '-' || Operator == '*' ||
-		Operator == '/' || Operator == '#' || Operator == '^';
+
+	return ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '^' || ch == '#';
 }
 
-int Descompunere::prioritate(char oper)
+int Descompunere::prioritate(char oper) 
 {
 	if (oper == '+' || oper == '-') return 1;
-	if (oper == '*' || oper == '/')	return 2;
-	if (oper == '#' || oper == '^')	return 3;
+	if (oper == '*' || oper == '/') return 2;
+	if (oper == '^') return 3;
+	if (oper == '#') return 4; 
+	return 0;
 }
 
-vector<string> Descompunere::procesare(const string& expresie)
+vector<string> Descompunere::procesare(const string& expresie) 
 {
 	vector<char> container;
 	vector<string> out;
 	string nr;
 
-	for (char ch : expresie) 
-	{
-		if (isdigit(ch) || ch == '.')
-		{
+	for (char ch : expresie) {
+		if (isdigit(ch) || ch == '.') {
 			nr += ch;
 		}
 		else {
@@ -112,13 +112,12 @@ vector<string> Descompunere::procesare(const string& expresie)
 				}
 				container.push_back(ch);
 			}
-			else if (ch == '(') {
+			else if (ch == '(' || ch == '[') {
 				container.push_back(ch);
 			}
-			else if (ch == ')')
-			{
-				while (!container.empty() && container.back() != '(')
-				{
+			else if (ch == ')' || ch == ']') {
+				char coresp = (ch == ')') ? '(' : '[';
+				while (!container.empty() && container.back() != coresp) {
 					out.push_back(string(1, container.back()));
 					container.pop_back();
 				}
@@ -126,52 +125,66 @@ vector<string> Descompunere::procesare(const string& expresie)
 					container.pop_back();
 				}
 			}
-
-
 		}
-		if (nr.empty())
-		{
-			out.push_back(nr);
-		}
-
-		while (!container.empty())
-		{
-			out.push_back(string(1, container.back()));
-			container.pop_back();
-		}
-
-		return out;
 	}
+
+	if (!nr.empty()) {
+		out.push_back(nr);
+	}
+
+	while (!container.empty()) {
+		out.push_back(string(1, container.back()));
+		container.pop_back();
+	}
+
+	return out;
 }
 
-	double Descompunere::evaluare(const vector<string>&tokens)
-	{
-		vector<double> container;
 
-		for (const auto& token : tokens) 
-		{
-			if (token.size() == 1 && esteOperator(token[0]))
-			{
-				double b = container.back();
-				container.pop_back();
-				double a = container.back();
-				container.pop_back();
-				switch(token[0])
-				{
-				case '+': container.push_back(a + b); break;
-				case '-': container.push_back(a - b); break;
-				case '/': container.push_back(a / b); break;
-				case '*': container.push_back(a * b); break;
-				case '#': container.push_back(sqrt(b)); break;
-				case '^': container.push_back(pow(a,b)); break;
-				}
+
+
+double Descompunere::evaluare(const vector<string>& tokens)
+{
+	vector<double> container;
+
+	for (const auto& token : tokens) {
+		if (esteOperator(token[0]) && token.size() == 1) {
+			if (container.size() < (token[0] == '#' ? 1 : 2)) {
+				throw runtime_error("Expresie invalida: prea putini operanzi pentru operator");
 			}
-			else {
-				container.push_back(stod(token));
+
+			double b = container.back(); container.pop_back();
+			double a = token[0] != '#' ? container.back() : 0;
+			if (token[0] != '#') container.pop_back();
+
+			switch (token[0]) {
+			case '+': container.push_back(a + b); break;
+			case '-': container.push_back(a - b); break;
+			case '*': container.push_back(a * b); break;
+			case '/': container.push_back(a / b); break;
+			case '^': container.push_back(pow(a, b)); break;
+			case '#': container.push_back(sqrt(b)); break;
+			default: throw runtime_error("Operator necunoscut");
 			}
 		}
-		return container.back();
+		else {
+			try {
+				container.push_back(stod(token));
+			}
+			catch (const invalid_argument&) {
+				throw runtime_error("Expresie invalida: token necunoscut sau format gresit");
+			}
+		}
 	}
+
+	if (container.size() != 1) {
+		throw runtime_error("Expresie invalida: prea multi operanzi");
+	}
+
+	return container.back();
+}
+
+
 	
 
 
