@@ -23,6 +23,9 @@ public:
 
 	Ecuatie(const Ecuatie& e);
 
+	virtual void descrieEcuatie();
+
+	virtual string tipEcuatie();
 
 	Ecuatie& operator=(const Ecuatie& e);
 

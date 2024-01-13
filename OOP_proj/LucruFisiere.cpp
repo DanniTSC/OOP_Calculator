@@ -85,3 +85,26 @@ void LucruFisiere::citireEcuatiiDinFisier()
     }
     cout << "Ecuatiile au fost procesate." << endl;
 }
+
+double LucruFisiere::citireBinar(const string& numeFisier)
+{
+    double numar;
+    ifstream fisierIn(numeFisier, ios::binary | ios::ate);
+    if (!fisierIn)
+    {
+        cerr << "Eroare la deschiderea fisierului" << endl;
+        return 0;
+    }
+    streamsize sizeFisier = fisierIn.tellg();
+    if (sizeFisier == 0)
+    {
+        cerr << "Fisierul nu contine niciun numar" << endl;
+        return 0;
+    }
+
+    fisierIn.seekg(-static_cast<int>(sizeof(double)), ios::end);
+
+    fisierIn.read(reinterpret_cast<char*>(&numar), sizeof(numar));
+    fisierIn.close();
+    return numar;
+}

@@ -9,6 +9,16 @@ using namespace std;
 
 Ecuatie::Ecuatie() : coeficienti(nullptr), nrCoef(0) {}
 
+void Ecuatie::descrieEcuatie()
+{
+	cout << "Ecuatie generica" << endl;
+}
+
+string Ecuatie::tipEcuatie()
+{
+	return "Normala";
+}
+
 Ecuatie::Ecuatie(double* coeficienti, int nrCoef)
 {
 

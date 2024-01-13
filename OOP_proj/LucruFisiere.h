@@ -12,5 +12,7 @@ public:
 	static void salvareRezultateInFisier(double rezultat);
 
 	static void citireEcuatiiDinFisier();
+	
+	static double citireBinar(const string& numeFisier);
 
 };
