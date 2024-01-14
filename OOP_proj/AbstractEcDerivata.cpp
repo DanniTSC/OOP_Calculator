@@ -2,6 +2,7 @@
 #include"AbstractEcDerivata.h"
 #include<iostream>
 using namespace std;
+//Faza 2 final
 
 AbstractEcDerivata::AbstractEcDerivata(double a, double b) : a(a), b(b) {}
 

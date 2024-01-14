@@ -3,6 +3,7 @@
 #include<string>
 #include "Descompunere.h"
 #include "Ecuatie.h"
+//Faza 2 final
 
 using namespace std;
 

@@ -1,4 +1,5 @@
 #pragma once
+//Faza 2 final
 
 class AbstarctEcuatie {
 public:

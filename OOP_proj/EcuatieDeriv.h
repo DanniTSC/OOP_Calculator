@@ -1,5 +1,6 @@
 #pragma once
 #include"Ecuatie.h"
+//Faza 2 final
 
 class EcuatieDeriv : public Ecuatie {
 

@@ -6,6 +6,7 @@
 #include<string>
 #include<iostream>
 using namespace std;
+//Faza 2 final
 
 void LucruFisiere::salvareRezultateInFisier(double rezultat)
 {

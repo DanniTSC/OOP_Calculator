@@ -9,6 +9,7 @@
 #include"AbstarctEcuatie.h"
 #include"AbstractEcDerivata.h"
 using namespace std;
+//Faza 2 final
 
 
 int main(int argc, char* argv[]) {

@@ -1,5 +1,6 @@
 #pragma once
 #include"AbstarctEcuatie.h"
+//Faza 2 final
 
 
 class AbstractEcDerivata :public AbstarctEcuatie {

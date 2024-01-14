@@ -5,6 +5,7 @@
 #include<fstream>
 #include "Calcul.h"
 #include "Descompunere.h"
+//Faza 2 final
 
 using namespace std;
 

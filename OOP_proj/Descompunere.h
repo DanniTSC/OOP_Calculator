@@ -4,7 +4,7 @@
 #include "Calcul.h"
 #include "Ecuatie.h"
 #include<vector>
-
+//Faza 2 final
 using namespace std;
 /*
 Mecanism de preprocesare aici este trimisa

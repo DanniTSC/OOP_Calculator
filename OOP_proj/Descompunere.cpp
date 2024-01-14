@@ -5,6 +5,7 @@
 #include<cmath>
 #include<vector>
 #include<cctype>
+//Faza 2 final
 
 using namespace std;
 

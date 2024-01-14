@@ -1,6 +1,7 @@
 #include<iostream>
 #include"Ecuatie.h"
 #include"EcuatieDeriv.h"
+//Faza 2 final
 
 using namespace std;
 
